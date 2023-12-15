@@ -1,0 +1,27 @@
+{
+    "name": "woweb/openzaak",
+    "description": "A laravel wrapper for the Open Zaak API",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Woweb B.V.",
+            "email": "info@woweb.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Woweb\\Openzaak\\": "src/"
+        }
+    },
+    "require": {
+        "rbdwllr/reallysimplejwt": "^4.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Woweb\\Openzaak\\OpenzaakServiceProvider"
+            ]
+        }
+    }
+}
