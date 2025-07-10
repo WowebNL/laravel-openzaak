@@ -4,6 +4,7 @@ namespace Woweb\Openzaak\Api\Endpoints;
 
 use Exception;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Woweb\Openzaak\Connection\OpenzaakConnection;
 use Woweb\Openzaak\Response\OpenzaakResponse;
@@ -67,13 +68,24 @@ abstract class AbstractEndpoint
      * @param array $params
      * @return Illuminate\Support\Collection
      */
-    protected function getMany(string $endpoint, array $params = []) : Collection
+    protected function getMany(string $endpoint, array $params = [], ?string $cacheName = null) : Collection
     {
+        if($cacheName && Cache::has($cacheName)) {
+            return Cache::get($cacheName);
+        }
+        
         $url = $this->apiUrl . $endpoint;
 
         $response = OpenzaakResponse::validate(Http::withHeaders($this->connection->getHeaders())->get($url, $params));
 
         return $this->createCollection($this->getResults($response, []));
+    }
+
+    protected function getManyRaw(string $endpoint, array $params = []) : Collection 
+    {
+        $url = $this->apiUrl . $endpoint;
+
+        return collect(json_decode(Http::withHeaders($this->connection->getHeaders())->get($url, $params)->body())); 
     }
 
     /**

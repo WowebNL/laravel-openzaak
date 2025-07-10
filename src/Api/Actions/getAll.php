@@ -10,15 +10,19 @@ trait GetAll
     {
         $params = $this->applyFilterToParams($params);
         
-        $responseCollection = $this->getMany($this->endpoint, $params);
+        $cacheName = $this->getAllUrl($params);
+        $responseCollection = $this->getMany($this->endpoint, $params, $cacheName);
 
         if($this->cache) {
-            $url = $this->getAllUrl($params);
-
-            Cache::put($url, $responseCollection, $this->cacheTime);
+            Cache::put($cacheName, $responseCollection, $this->cacheTime);
         }
 
         return $responseCollection;
+    }
+
+    public function getAllRaw() : collection 
+    {
+        return $this->getManyRaw($this->endpoint, []);
     }
 
     public function getAllUrl(array $params = []) : string 
