@@ -95,12 +95,14 @@ abstract class AbstractEndpoint
      * @param array $params
      * @return Illuminate\Support\Collection
      */
-    protected function getSingle(string $endpoint, string $uuid) : Collection
+    protected function getSingle(string $endpoint, string $uuid, array $expand = []) : Collection
     {
         $url = $this->apiUrl . $endpoint . '/' . $uuid;
 
-        $response = OpenzaakResponse::validate(Http::withHeaders($this->connection->getHeaders())->get($url));
-
+        $response = OpenzaakResponse::validate(Http::withHeaders($this->connection->getHeaders())->get($url, [
+            'expand' => implode(',', $expand)
+        ]));
+        
         return $this->createCollection($response, 'single');
     }
 
