@@ -14,6 +14,25 @@ class DirectEndpoint
     use ResponseTransformer;
 
     /**
+     * @var Woweb\Openzaak\Connection\OpenzaakConnection
+     */
+    protected $connection;
+
+    /**
+     * enable / disable caching the response
+     *
+     * @var bool
+     */
+    protected $cache;
+
+    /**
+     * Time to cache the response
+     *
+     * @var int
+     */
+    protected $cacheTime;
+
+    /**
      * Inject connection and set up default param values
      *
      * @param OpenzaakConnection $connection
