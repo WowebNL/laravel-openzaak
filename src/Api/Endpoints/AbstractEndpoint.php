@@ -3,6 +3,7 @@
 namespace Woweb\Openzaak\Api\Endpoints;
 
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -78,7 +79,8 @@ abstract class AbstractEndpoint
 
         $response = OpenzaakResponse::validate(Http::withHeaders($this->connection->getHeaders())->get($url, $params));
 
-        return $this->createCollection($this->getResults($response, []));
+        $results = Arr::has($response, 'results') ? $this->getResults($response, []) : $response;
+        return $this->createCollection($results);
     }
 
     protected function getManyRaw(string $endpoint, array $params = []) : Collection 
