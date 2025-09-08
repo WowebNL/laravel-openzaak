@@ -63,4 +63,15 @@ class DirectEndpoint
 
         return $responseCollection;
     }
+
+    /**
+     * Get the body by full api url
+     *
+     * @param string $url
+     * @return string
+     */
+    public function getRawByUrl(string $url) : string
+    {
+        return Http::withHeaders($this->connection->getHeaders())->get($url)->body();
+    }
 }
