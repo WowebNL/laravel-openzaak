@@ -118,7 +118,8 @@ abstract class AbstractEndpoint
      */
     private function getResults(array $response, array $results)
     {
-        $results = array_merge($results, $response['results']);
+        $items = $response['results'] ?? $response;
+        $results = array_merge($results, $items);
         if (!empty($response['next'])) {
             $response = OpenzaakResponse::validate(Http::withHeaders($this->connection->getHeaders())->get($response['next']));
             $this->getResults($response, $results);
