@@ -82,6 +82,11 @@ class Openzaak
         return (new DirectEndpoint($this->connection))->getByUrl($url, $forceCache);
     }
 
+    public function getRaw(string $url) : string
+    {
+        return (new DirectEndpoint($this->connection))->getRawByUrl($url);
+    }
+
     /**
      * Check if the data related to the url is in the current cache driver,
      * if so return the cached data, if not then call the url and store the
