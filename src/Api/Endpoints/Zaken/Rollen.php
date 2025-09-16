@@ -7,10 +7,11 @@ use Woweb\Openzaak\Api\Endpoints\AbstractEndpoint;
 use Woweb\Openzaak\Api\Actions\getAll;
 use Woweb\Openzaak\Api\Actions\getSingle;
 use Woweb\Openzaak\Api\Actions\Store;
+use Woweb\Openzaak\Api\Actions\Put;
 
 class Rollen extends AbstractEndpoint
 {
-    use GetAll, GetSingle, Store, Delete;
+    use GetAll, GetSingle, Store, Delete, Put;
 
     protected $apiName = 'zaken';
 
