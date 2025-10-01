@@ -5,6 +5,7 @@ namespace Woweb\Openzaak\Api;
 use Woweb\Openzaak\Api\Endpoints\Catalogi\Catalogussen;
 use Woweb\Openzaak\Api\Endpoints\Catalogi\Eigenschappen;
 use Woweb\Openzaak\Api\Endpoints\Catalogi\Informatieobjecttypen;
+use Woweb\Openzaak\Api\Endpoints\Catalogi\ResultaatTypen;
 use Woweb\Openzaak\Api\Endpoints\Catalogi\Roltypen;
 use Woweb\Openzaak\Api\Endpoints\Catalogi\StatusTypen;
 use Woweb\Openzaak\Api\Endpoints\Catalogi\Zaaktypen;
@@ -47,5 +48,10 @@ class CatalogiApi
     public function statustypen() : StatusTypen
     {
         return new StatusTypen($this->connection);
+    }
+
+    public function resultaattypen() : ResultaatTypen
+    {
+        return new ResultaatTypen($this->connection);
     }
 }
