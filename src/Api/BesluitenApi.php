@@ -3,9 +3,7 @@
 namespace Woweb\Openzaak\Api;
 
 use Woweb\Openzaak\Api\Endpoints\Besluiten\Besluiten;
-use Woweb\Openzaak\Api\Endpoints\Zaken\Rollen;
-use Woweb\Openzaak\Api\Endpoints\Zaken\Zaakinformatieobjecten;
-use Woweb\Openzaak\Api\Endpoints\Zaken\Zaken;
+use Woweb\Openzaak\Api\Endpoints\Besluiten\Besluitinformatieobjecten;
 use Woweb\Openzaak\Connection\OpenzaakConnection;
 
 class BesluitenApi
@@ -20,5 +18,10 @@ class BesluitenApi
     public function besluiten() : Besluiten
     {
         return new Besluiten($this->connection);
+    }
+
+    public function besluitinformatieobjecten() : Besluitinformatieobjecten
+    {
+        return new Besluitinformatieobjecten($this->connection);
     }
 }
