@@ -5,12 +5,13 @@ namespace Woweb\Openzaak\Api\Endpoints\Zaken\Nested;
 use Woweb\Openzaak\Api\Endpoints\AbstractEndpoint;
 use Woweb\Openzaak\Api\Actions\getAll;
 use Woweb\Openzaak\Api\Actions\getSingle;
+use Woweb\Openzaak\Api\Actions\Patch;
 use Woweb\Openzaak\Api\Actions\Store;
 use Woweb\Openzaak\Connection\OpenzaakConnection;
 
 class Zaakeigenschappen extends AbstractEndpoint
 {
-    use GetAll, GetSingle, Store;
+    use GetAll, GetSingle, Store, Patch;
 
     protected $apiName = 'zaken';
 
