@@ -7,11 +7,12 @@ use Woweb\Openzaak\Api\Actions\getAll;
 use Woweb\Openzaak\Api\Actions\getSingle;
 use Woweb\Openzaak\Api\Actions\Patch;
 use Woweb\Openzaak\Api\Actions\Store;
+use Woweb\Openzaak\Api\Actions\Delete;
 use Woweb\Openzaak\Api\Endpoints\Zaken\Nested\Zaakeigenschappen;
 
 class Zaken extends AbstractEndpoint
 {
-    use GetAll, GetSingle, Store, Patch;
+    use GetAll, GetSingle, Store, Patch, Delete;
 
     protected $apiName = 'zaken';
 
