@@ -17,6 +17,33 @@ return [
    'client_secret'    => env('OPENZAAK_CLIENT_SECRET', null),
    'catalogi_url'         => env('OPENZAAK_CATALOGI_URL', null),
 
+   /*
+   |--------------------------------------------------------------------------
+   | Per-API base URL overrides
+   |--------------------------------------------------------------------------
+   |
+   | When set, these URLs fully replace the default base URL for the
+   | corresponding API. Useful when each API is hosted at a separate endpoint.
+   |
+   */
+   'besluiten_base_url'   => env('OPENZAAK_BESLUITEN_BASE_URL', null),
+   'catalogi_base_url'    => env('OPENZAAK_CATALOGI_BASE_URL', null),
+   'documenten_base_url'  => env('OPENZAAK_DOCUMENTEN_BASE_URL', null),
+   'zaken_base_url'       => env('OPENZAAK_ZAKEN_BASE_URL', null),
+
+   /*
+   |--------------------------------------------------------------------------
+   | User-level JWT storage
+   |--------------------------------------------------------------------------
+   |
+   | When enabled, generated JWT tokens are cached on the authenticated user
+   | model (openzaak_jwt / openzaak_jwt_valid_till columns) and reused until
+   | they expire. Disable this to always generate a fresh token without
+   | touching the database.
+   |
+   */
+   'user_jwt'             => env('OPENZAAK_USER_JWT', true),
+
    'openklant'      => [
         'url'       => env('OPENKLANT_URL', 'https://openklant.woweb.app/')
    ],

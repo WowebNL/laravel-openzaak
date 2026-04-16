@@ -56,7 +56,12 @@ abstract class AbstractEndpoint
             throw new Exception('Api name missing for ' . get_class());
         }
 
-        $this->apiUrl = str_replace('{type}', $this->apiName, $this->connection->getBaseUrl());
+        $overrideUrl = config('openzaak.' . $this->apiName . '_base_url');
+        if (!empty($overrideUrl)) {
+            $this->apiUrl = rtrim($overrideUrl, '/') . '/';
+        } else {
+            $this->apiUrl = str_replace('{type}', $this->apiName, $this->connection->getBaseUrl());
+        }
 
         $this->cache     = config('openzaak.cache.default', false);
         $this->cacheTime = config('openzaak.cache.time.' . $this->apiName, 0);
