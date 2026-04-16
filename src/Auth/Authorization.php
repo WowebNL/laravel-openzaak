@@ -19,6 +19,10 @@ class Authorization
     {
         $user = Auth::user();
 
+        if (!config('openzaak.user_jwt', true)) {
+            return self::generateNewToken($user, false);
+        }
+
         if(!empty($user->openzaak_jwt) && Carbon::parse($user->openzaak_jwt_valid_till) > Carbon::now()) {
             return $user->openzaak_jwt;
         } else {
@@ -32,7 +36,7 @@ class Authorization
      * @param User|null $user
      * @return string
      */
-    private static function generateNewToken(?User $user) : string
+    private static function generateNewToken(?User $user, bool $persist = true) : string
     {
         $clientId = config('openzaak.client_id');
         $clientSecret = config('openzaak.client_secret');
@@ -55,7 +59,9 @@ class Authorization
 
             $token = 'Bearer ' . Token::customPayload($payload, $clientSecret);
 
-            self::updateUser($user, $token);
+            if ($persist) {
+                self::updateUser($user, $token);
+            }
 
             return $token;
         } else {
