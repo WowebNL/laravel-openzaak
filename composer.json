@@ -14,9 +14,7 @@
             "Woweb\\Openzaak\\": "src/"
         }
     },
-    "require": {
-        "rbdwllr/reallysimplejwt": "^4.0"
-    },
+    "require": {},
     "extra": {
         "laravel": {
             "providers": [

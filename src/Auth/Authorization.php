@@ -6,7 +6,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use ReallySimpleJWT\Token;
+
 
 class Authorization 
 {
@@ -57,7 +57,7 @@ class Authorization
                 'user_representation'   => $userName
             ];
 
-            $token = 'Bearer ' . Token::customPayload($payload, $clientSecret);
+            $token = 'Bearer ' . self::buildJwt($payload, $clientSecret);
 
             if ($persist) {
                 self::updateUser($user, $token);
@@ -76,6 +76,17 @@ class Authorization
      * @param string $token
      * @return void
      */
+    private static function buildJwt(array $payload, string $secret) : string
+    {
+        $encode = fn($data) => rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+
+        $header    = $encode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
+        $body      = $encode(json_encode($payload));
+        $signature = $encode(hash_hmac('sha256', "$header.$body", $secret, true));
+
+        return "$header.$body.$signature";
+    }
+
     private static function updateUser(?User $user, string $token)
     {
         if($user instanceof User) {
