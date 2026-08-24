@@ -25,7 +25,6 @@ class OpenzaakResponse
         if($response->status() == 204 && empty($response->body())) {
             return true;
         } else if($response->failed()) {
-            FacadesLog::error('OpenZaak delete response error body: ' . $response->body());
             $response->throw();
         }
 
@@ -40,7 +39,6 @@ class OpenzaakResponse
     {
         if ($response->failed()) {
             if ($response->status() == 400) {
-                FacadesLog::error('OpenZaak response error body: ' . $response->body());
             }
             $response->throw();
         }
